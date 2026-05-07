@@ -35,8 +35,9 @@ jobs:
         --region=us-central1 \
         --allow-unauthenticated \
         --service-account=github-deployer@${{ steps.auth.outputs.project_id }}.iam.gserviceaccount.com \
-        --set-env-vars=DB_HOST=${{ steps.auth.outputs.project_id }}:us-central1:clientes-db,DB_USER=admin,DB_PASSWORD=admin1234
-
+        --vpc-connector=iac-vpc-connector \
+        --vpc-egress=private-ranges-only \
+        --set-env-vars=DB_HOST=10.43.0.3,DB_USER=admin,DB_PASSWORD=admin1234
     - name: Copiar index.html a la VM
       run: |
         echo "$SSH_PRIVATE_KEY" > key.pem
